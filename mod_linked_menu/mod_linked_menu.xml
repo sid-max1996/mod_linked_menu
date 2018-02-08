@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+	<name>Linked Menu</name>
+	<author>max1119</author>
+	<creationDate>06.02.2018</creationDate>
+	<copyright>Copyright(C)</copyright>
+	<license>GNU General Public License</license>
+	<authorEmail>max1119@yandex.ru</authorEmail>
+	<version>3.0.0</version>
+	<description>MODE_LINKEDMENU_DESCRIPTION</description>
+	<files>
+		<filename module="mod_linked_menu">mod_linked_menu.php</filename>
+        <filename>helper.php</filename>
+		<folder>tmpl</folder>
+        <folder>language</folder>
+        <folder>assets</folder>
+	</files>
+	<media folder="assets" destination="mod_linked_menu">
+        <folder>css</folder>
+    </media>
+	<languages>
+		<language tag="ru-Ru">language/ru-RU/ru-Ru.mod_linked_menu.ini</language>
+		<language tag="ru-Ru">language/ru-RU/ru-Ru.mod_linked_menu.sys.ini</language>
+	</languages>
+	<config>
+	   <fields name="params">
+        <fieldset name="basic">
+            <field name="menutype" type="menu" label="MODE_LINKEDMENU_FIELD_MENUTYPE_LABEL"
+              description="MODE_LINKEDMENU_FIELD_MENUTYPE_DESC"/>
+							<field name="class_div" type="text" label="MOD_MENU_DIV_CLASS_LABEL" default="twoMenu"
+								description="twoMenu по умолчанию"
+							/>
+						<field
+							name="class_select_left" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_LEFT" default="leftSelect"
+							description="leftSelect по умолчанию"
+						/>
+						<field
+							name="class_select_right" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_RIGHT" default="rightSelect"
+							description="rightSelect по умолчанию"
+						/>
+						<field
+							name="title_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT_TITLE" default="Go"
+							description="Надпись на кнопке"
+						/>
+						<field
+							name="class_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT" default="btSelect"
+							description="btSelect по умолчанию"
+						/>
+      </fieldset>
+      </fields>
+	</config>
+</extension>
