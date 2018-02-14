@@ -21,6 +21,8 @@
 	<languages>
 		<language tag="ru-Ru">language/ru-RU/ru-Ru.mod_linked_menu.ini</language>
 		<language tag="ru-Ru">language/ru-RU/ru-Ru.mod_linked_menu.sys.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_linked_menu.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_linked_menu.sys.ini</language>
 	</languages>
 	<config>
 	   <fields name="params">
@@ -28,43 +30,43 @@
             <field name="menutype" type="menu" label="MODE_LINKEDMENU_FIELD_MENUTYPE_LABEL"
               description="MODE_LINKEDMENU_FIELD_MENUTYPE_DESC"/>
 			<field name="class_div" type="text" label="MOD_MENU_DIV_CLASS_LABEL" default="wrapperLinkedList"
-				description="wrapperLinkedList по умолчанию"
+				description="wrapperLinkedList by default"
 			/>	
 			<field
 				name="class_select_div" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_SELECT" default="selectDiv"
-				description="selectDiv по умолчанию"
+				description="selectDiv by default"
 			/>	
 			<field
 				name="class_select_div_drop" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_DROP_DIV" default="dropcontainer"
-				description="dropcontainer по умолчанию"
+				description="dropcontainer by default"
 			/>
 			<field
 				name="class_select_ul" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_UL" default="ulLinkedList"
-				description="ulLinkedList по умолчанию"
+				description="ulLinkedList by default"
 			/>	
 			<field
 			name="title_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT_TITLE" default="Go"
-			description="Надпись на кнопке"
+			description="Label on button"
 			/>
 			<field
 				name="class_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT" default="btLinkMenu"
-				description="btLinkMenu по умолчанию"
+				description="btLinkMenu by default"
 			/> 
 			<field
 				name="class_a" type="text" label="MOD_LM_A" default="trigger"
-				description="trigger по умолчанию"
+				description="trigger by default"
 			/>	
 			<field
 				name="class_a_act" type="text" label="MOD_LM_A_ACT" default="activetrigger"
-				description="activetrigger по умолчанию"
+				description="activetrigger by default"
 			/>	
 			<field
 				name="class_ul" type="text" label="MOD_LM_UL" default="dropdownhidden"
-				description="dropdownhidden по умолчанию"
+				description="dropdownhidden by default"
 			/>	
 			<field
 				name="class_ul_act" type="text" label="MOD_LM_UL_ACT" default="dropdownvisible"
-				description="dropdownvisible по умолчанию"
+				description="dropdownvisible by default"
 			/>	
       </fieldset>
       </fields>
