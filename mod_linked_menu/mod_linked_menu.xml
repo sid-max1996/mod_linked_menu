@@ -27,25 +27,45 @@
         <fieldset name="basic">
             <field name="menutype" type="menu" label="MODE_LINKEDMENU_FIELD_MENUTYPE_LABEL"
               description="MODE_LINKEDMENU_FIELD_MENUTYPE_DESC"/>
-							<field name="class_div" type="text" label="MOD_MENU_DIV_CLASS_LABEL" default="twoMenu"
-								description="twoMenu по умолчанию"
-							/>
-						<field
-							name="class_select_left" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_LEFT" default="leftSelect"
-							description="leftSelect по умолчанию"
-						/>
-						<field
-							name="class_select_right" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_RIGHT" default="rightSelect"
-							description="rightSelect по умолчанию"
-						/>
-						<field
-							name="title_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT_TITLE" default="Go"
-							description="Надпись на кнопке"
-						/>
-						<field
-							name="class_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT" default="btSelect"
-							description="btSelect по умолчанию"
-						/>
+			<field name="class_div" type="text" label="MOD_MENU_DIV_CLASS_LABEL" default="wrapperLinkedList"
+				description="wrapperLinkedList по умолчанию"
+			/>	
+			<field
+				name="class_select_div" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_SELECT" default="selectDiv"
+				description="selectDiv по умолчанию"
+			/>	
+			<field
+				name="class_select_div_drop" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_DROP_DIV" default="dropcontainer"
+				description="dropcontainer по умолчанию"
+			/>
+			<field
+				name="class_select_ul" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_UL" default="ulLinkedList"
+				description="ulLinkedList по умолчанию"
+			/>	
+			<field
+			name="title_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT_TITLE" default="Go"
+			description="Надпись на кнопке"
+			/>
+			<field
+				name="class_button" type="text" label="MOD_MENU_SELECT_CLASS_LABEL_BT" default="btLinkMenu"
+				description="btLinkMenu по умолчанию"
+			/> 
+			<field
+				name="class_a" type="text" label="MOD_LM_A" default="trigger"
+				description="trigger по умолчанию"
+			/>	
+			<field
+				name="class_a_act" type="text" label="MOD_LM_A_ACT" default="activetrigger"
+				description="activetrigger по умолчанию"
+			/>	
+			<field
+				name="class_ul" type="text" label="MOD_LM_UL" default="dropdownhidden"
+				description="dropdownhidden по умолчанию"
+			/>	
+			<field
+				name="class_ul_act" type="text" label="MOD_LM_UL_ACT" default="dropdownvisible"
+				description="dropdownvisible по умолчанию"
+			/>	
       </fieldset>
       </fields>
 	</config>

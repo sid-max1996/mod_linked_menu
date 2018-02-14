@@ -6,10 +6,17 @@ require_once dirname(__FILE__) . '/helper.php';
 define("ROOT_DIR", dirname(__FILE__));
 
 $classDiv =  htmlspecialchars($params->get("class_div"), ENT_COMPAT, 'UTF-8');
-$classSelectLeft = htmlspecialchars($params->get("class_select_left"), ENT_COMPAT, 'UTF-8');
-$classSelectRight = htmlspecialchars($params->get("class_select_right"), ENT_COMPAT, 'UTF-8');
-$classBtLinkedList = htmlspecialchars($params->get("class_button"), ENT_COMPAT, 'UTF-8');
+$classSelectDiv = htmlspecialchars($params->get("class_select_div"), ENT_COMPAT, 'UTF-8');
+$classSelectDivDrop = htmlspecialchars($params->get("class_select_div_drop"), ENT_COMPAT, 'UTF-8');
+$classUlLinkMenu = htmlspecialchars($params->get("class_select_ul"), ENT_COMPAT, 'UTF-8');
+// $classSelectRight = htmlspecialchars($params->get("class_select_right"), ENT_COMPAT, 'UTF-8');
+$classBtLinkMenu = htmlspecialchars($params->get("class_button"), ENT_COMPAT, 'UTF-8');
 $btTitle = htmlspecialchars($params->get("title_button"), ENT_COMPAT, 'UTF-8');
+
+$aClass = htmlspecialchars($params->get("class_a"), ENT_COMPAT, 'UTF-8');
+$aActClass = htmlspecialchars($params->get("class_a_act"), ENT_COMPAT, 'UTF-8');
+$ulClass = htmlspecialchars($params->get("class_ul"), ENT_COMPAT, 'UTF-8');
+$ulActClass = htmlspecialchars($params->get("class_ul_act"), ENT_COMPAT, 'UTF-8');
 
 
 $twoMenuItems = ModLinkedMenuHelper::getTwoMenuItems($params);

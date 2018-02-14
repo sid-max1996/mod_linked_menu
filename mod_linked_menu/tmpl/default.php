@@ -7,80 +7,147 @@ $document->addStyleSheet($modulePath.'css/linked_menu.css');
 $jsonLeftSelection = json_encode($leftSelection, JSON_UNESCAPED_UNICODE);
 $jsonRightSelection = json_encode($rightSelection, JSON_UNESCAPED_UNICODE);
 
+// $document->addScript($modulePath.'js/data_linked_menu.js');
+// $document->addScript($modulePath.'js/linked_menu.js');
+
 $document->addScriptDeclaration("
 
     var leftSelection = JSON.parse('".$jsonLeftSelection."');
     var rightSelection = JSON.parse('".$jsonRightSelection."');
 
-    window.onload = function(){
-      var leftSelect = document.getElementById('leftSelect');
-      leftSelect.innerHTML = '';
-      var option = new Option('', 'empty_left_op');
-      leftSelect.add(option);
-      for (var i = 0; i < leftSelection.length; i++) {
-        var text = leftSelection[i].title;
-        var value = leftSelection[i].id;
-        var option = new Option(text, value);
-        leftSelect.add(option);
+    var aClass = '".$aClass."';
+    var aActClass = '".$aActClass."';
+    var ulClass = '".$ulClass."';
+    var ulActClass = '".$ulActClass."';
+    var selectItems = [];
+    selectItems.push(leftSelection);
+    selectItems.push(rightSelection);
+    
+    jQuery(document).ready(function() {
+      var selectDiv0 = jQuery('#selectDiv0');
+      var ul = selectDiv0.children('div.dropcontainer').children('ul');
+      var firtItems = selectItems[0];
+      for (var i = 0; i < firtItems.length; i++) {
+        var text = firtItems[i].title;
+        var id = firtItems[i].id;
+        ul.append('<li id=' + id + '><a href=#>'+ text +'</a></li>' );
       }
-
-      var rightSelect = document.getElementById('rightSelect');
-
-      leftSelect.onchange = changeItemsRightSelect;
-
-      function changeItemsRightSelect(ev) {
-        var leftSelect = document.getElementById('leftSelect');
-        var rightSelect = document.getElementById('rightSelect');
-        rightSelect.innerHTML = '';
-        var leftId = leftSelect.value;
-        for (var i = 0; i < rightSelection.length; i++) {
-          if (rightSelection[i].parentId == leftId) {
-            var text = rightSelection[i].title;
-            var id = rightSelection[i].id;
-            var flink = rightSelection[i].flink;
-            console.log(flink);
-            var option = document.createElement('option');
-            option.id = id;
-            var a = document.createElement('a');
-            a.innerHTML = text;
-            a.href = flink;
-            option.appendChild(a);
-            rightSelect.add(option);
+    
+      function toggleDropDownClasses(a, ul){
+        a.toggleClass(aClass);
+        a.toggleClass(aActClass);
+        ul.toggleClass(ulClass);
+        ul.toggleClass(ulActClass);
+      }
+    
+      jQuery('div.selectDiv').on('click', function(event) {
+        var a = jQuery(this).children('a');
+        var ul = jQuery(this).children('div.dropcontainer').children('ul');
+        toggleDropDownClasses(a, ul);
+      });
+    
+      jQuery('div.dropcontainer').on('click', 'li', function(event) {
+        event.preventDefault();
+        var text = jQuery(this).text();
+        jQuery(this).parent().parent().siblings('a').text(text);
+        var id = jQuery(this).attr('id');
+        var href = jQuery(this).children('a').attr('href');
+        var input = jQuery(this).parent().parent().siblings('input');    
+        input.attr('id', id).attr('value', href);
+        //the next change
+        var selDiv = jQuery(this).parent().parent().parent();
+        if (selDiv.attr('id').replace('selectDiv', '') == 0){
+          ChangeItems(1, id);
+        }
+        if (selDiv.attr('id').replace('selectDiv', '') == 1){
+          var selectDiv = jQuery('#selectDiv0');
+          var a = selectDiv.children('a');
+          if (a.hasClass('activetrigger')){
+            ul = a.siblings('div.dropcontainer').children('ul');
+            toggleDropDownClasses(a, ul);  
+          }
+        }
+      });
+    
+      function ChangeItems(selIdNum, parentItemId){
+        var selectDiv = jQuery('#selectDiv'+selIdNum); 
+        var input = selectDiv.children('input');
+        input.attr('id', '');
+        input.attr('value', '');  
+        var a = selectDiv.children('a');
+        ul = a.siblings('div.dropcontainer').children('ul');
+        ul.html('');
+        if (a.hasClass('activetrigger'))
+          toggleDropDownClasses(a, ul);  
+        a.text('');
+        var curItems = selectItems[parseInt(selIdNum)];
+        for (var i = 0; i < curItems.length; i++) {
+          var curItem = curItems[i];
+          if (curItem.parentId == parentItemId) {
+            var text = curItem.title;
+            var id = curItem.id;
+            var flink = curItem.flink;
+            ul.append('<li id=' + id + '><a href='+ flink +' >' 
+              + text + '</a></li>' );
           }
         }
       }
-
-      var buttonGo = document.getElementById('btLinkedList');
-      buttonGo.onclick = function(e) {
-        var leftSelect = document.getElementById('leftSelect');
-        localStorage.setItem('leftSelectIndex', leftSelect.selectedIndex);
-        var rightSelect = document.getElementById('rightSelect');
-        localStorage.setItem('rightSelectIndex', rightSelect.selectedIndex);
-        if(rightSelect.selectedIndex == -1)
+    
+      jQuery('#btLinkedList').on('click', function(event) {
+        var input = jQuery('#selectDiv1 input');
+        var lastId = parseInt(input.attr('id'));
+        var lastHref = input.attr('value');
+        if (!Number.isInteger(lastId))
           return;
-        var rightSelectOption = rightSelect.options[rightSelect.selectedIndex];
-        var href = rightSelectOption.getElementsByTagName('a')[0].href;
-        document.location.href = href;
-      }
-
-      if(localStorage.getItem('leftSelectIndex') != null &&
-        localStorage.getItem('rightSelectIndex') != null)
+        var firstId = jQuery('#selectDiv0 input').attr('id');
+        var firstText = jQuery('#selectDiv0 > a').text();
+        var lastText = jQuery('#selectDiv1 > a').text();
+        localStorage.setItem('lmBtFlag', 'true');
+        localStorage.setItem('lmId0', firstId);
+        localStorage.setItem('lmId1', lastId);
+        localStorage.setItem('lmText0', firstText);
+        localStorage.setItem('lmText1', lastText);
+        localStorage.setItem('lmHref', lastHref);
+        document.location.href = lastHref;
+      });
+    
+      if(localStorage.getItem('lmBtFlag') != null)
       {
-        leftSelect.selectedIndex = localStorage.getItem('leftSelectIndex');
-        changeItemsRightSelect();
-        localStorage.removeItem('leftSelectIndex');
-        rightSelect.selectedIndex = localStorage.getItem('rightSelectIndex');
-        localStorage.removeItem('rightSelectIndex');
+        var firstId = localStorage.getItem('lmId0');
+        var input0 = jQuery('#selectDiv0 > input');
+        input0.attr('id', firstId);
+        ChangeItems(1, firstId);
+        var input1 = jQuery('#selectDiv1 > input'); 
+        var lastId = localStorage.getItem('lmId1');
+        input1.attr('id', lastId);
+        var lastHref = localStorage.getItem('lmHref');
+        input1.attr('value', lastHref);
+        var firstText = localStorage.getItem('lmText0');  
+        var lastText = localStorage.getItem('lmText1');
+        jQuery('#selectDiv0 > a').text(firstText);
+        jQuery('#selectDiv1 > a').text(lastText);
+        localStorage.removeItem('lmBtFlag');
       }
-    }");
+    
+    });");
 ?>
 
-<div class="<?php echo $classDiv ?>">
-    <select id="leftSelect" class="<?php echo $classSelectLeft ?>">
-        <option value="empty" selected></option>
-    </select>
-    <select id="rightSelect" class="<?php echo $classSelectRight ?>">
-    </select>
-    <button id="btLinkedList" class="<?php echo $classBtLinkedList ?>">
-      <?php echo $btTitle ?></button>
+<div class=<?php echo '"'.$classDiv.'"'?>>
+  <div id = "selectDiv0" class=<?php echo '"'.$classSelectDiv.'"'?>>
+      <input type="hidden" id="" value="">
+      <a class=<?php echo '"'.$aClass.'"'?> href="#"></a>
+      <div class=<?php echo '"'.$classSelectDivDrop.'"'?>>
+          <ul class=<?php echo '"'.$classUlLinkMenu.' '.$ulClass.'"'?>></ul>
+      </div>
+  </div>
+
+  <div id = "selectDiv1" class=<?php echo '"'.$classSelectDiv.'"'?>>
+      <input type="hidden" id="" value="">
+      <a class=<?php echo '"'.$aClass.'"'?> href="#"></a>
+      <div class=<?php echo '"'.$classSelectDivDrop.'"'?>>
+          <ul class=<?php echo '"'.$classUlLinkMenu.' '.$ulClass.'"'?>></ul>
+      </div>
+  </div>
+
+  <a id="btLinkedList" href="#" class=<?php echo '"'.$classBtLinkMenu.'"'?>><?php echo $btTitle?></a>
 </div>
